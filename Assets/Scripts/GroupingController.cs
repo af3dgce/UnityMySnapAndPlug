@@ -3,18 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DoWhatOn
-{
-    AddListener,
-    RemoveListener,
-    DoNothing
-}
 
-public class EventPadController : MonoBehaviour
+public class GroupingController : MonoBehaviour
 {
+    public enum DoWhatOn
+    {
+        Group,
+        Ungroup,
+        DoNothing
+    }
+
 
     public DoWhatOn OnEnter;
-    //    public DoWhatOn OnExit;
 
     // Use this for initialization
     void Start()
@@ -64,14 +64,14 @@ public class EventPadController : MonoBehaviour
 
         switch (OnEnter)
         {
-            case DoWhatOn.AddListener:
-                if (!EventPadController.Contains(hi)) // Must check in static method, which doesn't make sense but oh well
+            case DoWhatOn.Group:
+                if (!HighlightController.Contains(hi))
                 {
                     OnPad += hi.ToggleHighlightMaterial;
                     //Debug.Log("Adding callback");
                 }
                 break;
-            case DoWhatOn.RemoveListener:
+            case DoWhatOn.Ungroup:
                 OnPad -= hi.ToggleHighlightMaterial;
                 break;
             case DoWhatOn.DoNothing:
@@ -80,38 +80,8 @@ public class EventPadController : MonoBehaviour
                 break;
         }
     }
-
-
-
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        //Debug.Log(other.gameObject.name + " left me");
-        /*
-        Highlightable hi = other.gameObject.GetComponent<Highlightable>();
-
-        switch (OnExit)
-        {
-            case DoWhatOn.AddListener:
-                OnPad += hi.ToggleHighlightMaterial;
-                break;
-            case DoWhatOn.RemoveListener:
-                OnPad -= hi.ToggleHighlightMaterial;
-                break;
-            case DoWhatOn.DoNothing:
-                break;
-            default:
-                break;
-        }
-        */
-
-        //if (hi) DoSomething(hi);
-    }
-
-
-
-    public void DoSomething()
+          
+    public static void DoSomething()
     {
 
         if (OnPad != null) OnPad();

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Highlightable : MonoBehaviour
 {
-    EventPadController eventPadController;
-    public GameObject eventPad;
 
     public Material highlightMat;
     Material originalMat;
@@ -15,7 +13,6 @@ public class Highlightable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        eventPadController = eventPad.GetComponent<EventPadController>();
         originalMat = gameObject.GetComponent<MeshRenderer>().material;
     }
 
@@ -30,10 +27,10 @@ public class Highlightable : MonoBehaviour
     private void OnMouseUp()
     {
         //If I am subscribed and dropped,
-        if (eventPadController && EventPadController.Contains(this))
+        if (HighlightController.Contains(this))
         {
             // do something for everyone who is subscribed
-            eventPadController.DoSomething();
+            HighlightController.DoSomething();
         }
     }
 
